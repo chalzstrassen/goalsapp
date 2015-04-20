@@ -7,6 +7,28 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <%= error %>
+    <% end %>
+  <% end %>
+
+  <% if current_user %>
+  <%= current_user.username %>
+  <form action=" <%= session_url %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <%= authentic_form %>
+    <button>Log Out</button>
+
+  </form>
+  <% else %>
+    <% unless params[:controller] == 'sessions' && params[:action] == 'new' %>
+      <a href="<%= new_session_url %>">Log In</a>
+    <% end %>
+    <% unless params[:controller] == 'users' && params[:action] == 'new' %>
+      <a href="<%= new_user_url %>">Sign Up</a>
+    <% end %>
+  <% end %>
 
 <%= yield %>
 

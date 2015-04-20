@@ -1,0 +1,9 @@
+<h2>Edit your goal!</h2>
+
+<form action="<%= goal_url(@goal) %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <%= authentic_form %>
+
+  <%= render 'form', goal: @goal %>
+  <button>Update Goal</button>
+</form>

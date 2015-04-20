@@ -1,0 +1,40 @@
+<h2> <%= @user.username %> </h2>
+<br>
+
+<ul>
+<% @user.goals.each do |goal| %>
+  <% if goal.privacy == "public" || goal.user_id == current_user.try(:id) %>
+    <li><a href="<%= goal_url(goal) %>"><%= goal.title %></a><br>
+      <small><%= goal.completed ? '(completed)' : '(incomplete)' %></small>
+      <% if goal.user_id == current_user.try(:id) %>
+        <small>
+          <a
+            href="<%= edit_goal_url(goal) %>"
+            id="<%= 'edit ' + goal.title %>">
+            Edit
+            </a>
+          </small>
+          <form action="<%= goal_url(goal) %>" method="post">
+            <%= authentic_form %>
+            <input type="hidden" name="_method" value="delete">
+            <button
+              id="<%= 'delete ' + goal.title %>">
+              Delete
+            </button>
+          </form>
+          <% if goal.completed == false %>
+            <form action="<%= goal_url(goal) %>" method="post">
+              <%= authentic_form %>
+              <input type="hidden" name="_method" value="patch">
+              <input type="hidden" name="goal[completed]" value="true">
+              <button
+                id="<%= 'complete ' + goal.title %>">
+                Complete
+              </button>
+            </form>
+          <% end %>
+      <% end %>
+    </li>
+  <% end %>
+<% end %>
+</ul>

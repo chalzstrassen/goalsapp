@@ -1,0 +1,7 @@
+<h1>Create a goal</h1>
+
+<form action="<%= goals_url %>" method="post">
+  <%= authentic_form %>
+  <%= render 'form' , goal: @goal%>
+  <button>Submit Goal</button>
+</form>

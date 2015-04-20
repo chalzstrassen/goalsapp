@@ -1,0 +1,13 @@
+<label>Title
+  <input type="text" name="goal[title]" value="<%= goal.title %>">
+</label>
+<br>
+<label>Body
+<textarea name="goal[body]"><%= goal.body %></textarea>
+</label>
+<br>
+<label>Privacy Setting</label><br>
+<label>Public
+<input type="radio" name="goal[privacy]" value="public" checked></label>
+<label>Private <input type="radio" name="goal[privacy]" value="private" <%= 'checked' if goal.privacy == 'private' %>></label>
+<br>
